@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' hide PhoneAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ttc/auth_gate.dart';
@@ -20,7 +21,9 @@ void main() async {
   // // but can be removed for release builds
   // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   // FirebaseAuth.instance.signOut();
-
+  final fcmToken = await FirebaseMessaging.instance.getToken(
+      vapidKey:
+          "BBwcN4SJw9EUWSHCGmEj7B7pY-WDh7nM0So8HqjhEH1wXQdV1p3-d3a9raf9DUuCtfw2mC3rP0rdsluCFTPKuIk");
   runApp(MyApp());
 }
 

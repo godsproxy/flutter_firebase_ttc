@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ttc/widgets/appbar/appbar_view.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+    HomeScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             Image.asset('assets/images/ttc-logo.png'),
             Text(
-              'Welcome!',
+              'Welcome to the Club!',
               style: Theme.of(context).textTheme.displaySmall,
             ),
             const SignOutButton(),
