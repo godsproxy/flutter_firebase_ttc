@@ -21,12 +21,14 @@ void main() async {
   // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   // FirebaseAuth.instance.signOut();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  List<AuthProvider<AuthListener, AuthCredential>>? providers = [
+    PhoneAuthProvider()
+  ];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -41,21 +43,30 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'The Tobacco Club',
+            initialRoute: FirebaseAuth.instance.currentUser == null
+                ? '/sign-in'
+                : '/profile',
             routes: {
-              '/phone': (context) => PhoneInputScreen(
-                    actions: [
-                      SMSCodeRequestedAction(
-                          (context, action, flowKey, phoneNumber) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => SMSCodeInputScreen(
-                              flowKey: flowKey,
-                            ),
-                          ),
-                        );
-                      })
-                    ],
-                  ),
+              '/sign-in': (context) {
+                return SignInScreen(
+                  providers: providers,
+                  actions: [
+                    AuthStateChangeAction<SignedIn>((context, state) {
+                      Navigator.pushReplacementNamed(context, '/profile');
+                    }),
+                  ],
+                );
+              },
+              '/profile': (context) {
+                return ProfileScreen(
+                  providers: providers,
+                  actions: [
+                    SignedOutAction((context) {
+                      Navigator.pushReplacementNamed(context, '/sign-in');
+                    }),
+                  ],
+                );
+              },
             },
             theme: ThemeData(
               primarySwatch: Colors.amber,
