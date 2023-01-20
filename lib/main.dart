@@ -24,6 +24,7 @@ void main() async {
   final fcmToken = await FirebaseMessaging.instance.getToken(
       vapidKey:
           "BBwcN4SJw9EUWSHCGmEj7B7pY-WDh7nM0So8HqjhEH1wXQdV1p3-d3a9raf9DUuCtfw2mC3rP0rdsluCFTPKuIk");
+  print("FCM Token: $fcmToken");
   runApp(MyApp());
 }
 
