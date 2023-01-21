@@ -32,7 +32,7 @@ build/
 .pub/
 
 # Ignore everything but 
-#!*/build/web/*
+!*/build/web/*
 
 # Symbolication related
 app.*.symbols
