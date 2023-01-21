@@ -8,7 +8,7 @@ enum TTCAuthStatus {
   Unauthenticated
 }
 
-class TTCAuth extends ChangeNotifier {
+class TTCAppData extends ChangeNotifier {
   TTCAuthStatus _status = TTCAuthStatus.Uninitialized;
 
   void updateStatus(User? user) {
@@ -19,7 +19,7 @@ class TTCAuth extends ChangeNotifier {
     notifyListeners();
   }
 
-  TTCAuth() {
+  TTCAppData() {
     _auth.authStateChanges().listen((User? user) {
       _user = user;
       updateStatus(user);

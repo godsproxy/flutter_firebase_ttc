@@ -1,11 +1,12 @@
 // custom appbar
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TTCAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const TTCAppbar({super.key});
-
+  const TTCAppbar({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -16,30 +17,8 @@ class TTCAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute<ProfileScreen>(
-                builder: (context) => ProfileScreen(
-                  appBar: AppBar(
-                    automaticallyImplyLeading: true,
-                    title: const Text('User Profile'),
-                    centerTitle: true,
-                    backgroundColor: Colors.red,
-                  ),
-                  actions: [
-                    SignedOutAction((context) {
-                      Navigator.of(context).pop();
-                    })
-                  ],
-                  children: [
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.asset('assets/images/ttc-logo.png'),
-                      ),
-                    ),
-                  ],
-                ),
+              MaterialPageRoute<TTCProfile>(
+                builder: (context) => TTCProfile(),
               ),
             );
           },
@@ -51,4 +30,27 @@ class TTCAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(50);
+}
+
+class TTCProfile extends StatelessWidget {
+  const TTCProfile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ProfileScreen(
+      auth: FirebaseAuth.instance,
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('Profile'),
+      ),
+      actions: [
+        SignedOutAction((context) {
+          Navigator.of(context).pop();
+        })
+      ],
+      children: [
+        const Divider(),
+      ],
+    );
+  }
 }

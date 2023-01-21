@@ -3,7 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ttc/auth_gate.dart';
+import 'package:flutter_firebase_ttc/home.dart';
 import 'package:flutter_firebase_ttc/providers/ttc_auth.dart';
+import 'package:flutter_firebase_ttc/screens/signin/signin_screen.dart';
+import 'package:flutter_firebase_ttc/themes.dart';
+import 'package:flutter_firebase_ttc/widgets/appbar/appbar_view.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -29,16 +33,14 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-  List<AuthProvider<AuthListener, AuthCredential>>? providers = [
-    PhoneAuthProvider()
-  ];
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<TTCAuth>(
-          create: (_) => TTCAuth(),
+        ChangeNotifierProvider<TTCAppData>(
+          create: (_) => TTCAppData(),
         ),
       ],
       child: Consumer(
@@ -50,37 +52,21 @@ class MyApp extends StatelessWidget {
                 ? '/sign-in'
                 : '/profile',
             routes: {
-              '/sign-in': (context) {
-                return SignInScreen(
-                  providers: providers,
-                  actions: [
-                    AuthStateChangeAction<SignedIn>((context, state) {
-                      Navigator.pushReplacementNamed(context, '/home');
-                    }),
-                  ],
-                );
-              },
-              '/profile': (context) {
-                return ProfileScreen(
-                  providers: providers,
-                  actions: [
-                    SignedOutAction((context) {
-                      Navigator.pushReplacementNamed(context, '/sign-in');
-                    }),
-                  ],
-                );
-              },
+              '/sign-in': (context) => TTCSignInScreen(),
+              '/profile': (context) => TTCProfile(),
+              '/home': (context) => HomeScreen(),
             },
-            theme: ThemeData(
-              primarySwatch: Colors.amber,
-              primaryColor: Colors.amber,
-              colorSchemeSeed: Colors.purple,
-              useMaterial3: true,
-            ),
+            theme: TTCTheme,
             home: AuthGate(),
+
           );
         },
       ),
     );
   }
 }
+
+List<AuthProvider<AuthListener, AuthCredential>>? providers = [
+  PhoneAuthProvider()
+];
+
