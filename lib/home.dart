@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ttc/widgets/appbar/appbar_view.dart';
 
 class HomeScreen extends StatelessWidget {
-    HomeScreen({super.key});
-  
+  HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

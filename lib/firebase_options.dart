@@ -21,15 +21,9 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -61,5 +55,25 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://learned-digit-374018-default-rtdb.firebaseio.com',
     storageBucket: 'learned-digit-374018.appspot.com',
     measurementId: 'G-0VY7ZGLBQB',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyCsITqGqLBAiKFRW3zFjGGVnoDnOqI3k3o',
+    appId: '1:502726819871:android:b95783b4baa27a76e7152a',
+    messagingSenderId: '502726819871',
+    projectId: 'learned-digit-374018',
+    databaseURL: 'https://learned-digit-374018-default-rtdb.firebaseio.com',
+    storageBucket: 'learned-digit-374018.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAZggmkNco7crw7ZoYry45jzlvpZcd9ta4',
+    appId: '1:502726819871:ios:7a564badef24b6f0e7152a',
+    messagingSenderId: '502726819871',
+    projectId: 'learned-digit-374018',
+    databaseURL: 'https://learned-digit-374018-default-rtdb.firebaseio.com',
+    storageBucket: 'learned-digit-374018.appspot.com',
+    iosClientId: '502726819871-2orqos5tjkb9i4vj919qra38g4lce5i1.apps.googleusercontent.com',
+    iosBundleId: 'com.example.flutterFirebaseTtc',
   );
 }
