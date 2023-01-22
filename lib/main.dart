@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide PhoneAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -46,20 +47,21 @@ class MyApp extends StatelessWidget {
       child: Consumer(
         builder: (BuildContext context, value, Widget? child) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'The Tobacco Club',
-            initialRoute: FirebaseAuth.instance.currentUser == null
-                ? '/sign-in'
-                : '/profile',
-            routes: {
-              '/sign-in': (context) => TTCSignInScreen(),
-              '/profile': (context) => TTCProfile(),
-              '/home': (context) => HomeScreen(),
-            },
-            theme: TTCTheme,
-            home: AuthGate(),
-
-          );
+              debugShowCheckedModeBanner: false,
+              title: 'The Tobacco Club',
+              // initialRoute: FirebaseAuth.instance.currentUser == null
+              //     ? '/sign-in'
+              //     : '/profile',
+              routes: {
+                '/sign-in': (context) => TTCSignInScreen(),
+                '/profile': (context) => TTCProfile(),
+                '/home': (context) => HomeScreen(),
+              },
+              theme: TTCTheme,
+              home: Scaffold(
+                appBar: AppBar(),
+                body: Container(),
+              ));
         },
       ),
     );
@@ -69,4 +71,3 @@ class MyApp extends StatelessWidget {
 List<AuthProvider<AuthListener, AuthCredential>>? providers = [
   PhoneAuthProvider()
 ];
-
